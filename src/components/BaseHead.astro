@@ -1,0 +1,99 @@
+---
+import { SITE } from '../consts';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = '/og-default.png',
+  article = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const ga = SITE.gaMeasurementId;
+const ads = SITE.adsensePublisherId;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE.title}
+  href={new URL('rss.xml', Astro.site)}
+/>
+
+<!-- Pretendard (dynamic subset) -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendard-dynamic-subset.min.css"
+/>
+
+<title>{pageTitle}</title>
+<meta name="title" content={pageTitle} />
+<meta name="description" content={description} />
+<meta name="author" content={SITE.author} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={article ? 'article' : 'website'} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content={SITE.title} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Theme init: set .dark before paint to avoid flash -->
+<script is:inline>
+  (() => {
+    const stored = localStorage.getItem('theme');
+    const dark =
+      stored === 'dark' ||
+      (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark', dark);
+  })();
+</script>
+
+{/* Google Analytics 4 — SITE.gaMeasurementId 설정 시에만 로드 */}
+{
+  ga && (
+    <Fragment>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga}`} />
+      <script
+        is:inline
+        set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga}');`}
+      />
+    </Fragment>
+  )
+}
+
+{/* Google AdSense — SITE.adsensePublisherId 설정 시에만 로드 */}
+{
+  ads && (
+    <script
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ads}`}
+      crossorigin="anonymous"
+    />
+  )
+}

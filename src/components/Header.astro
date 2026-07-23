@@ -1,0 +1,30 @@
+---
+import { NAV, SITE } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header class="flex items-center justify-between gap-4 border-b border-neutral-200 py-5 dark:border-neutral-800">
+  <a href="/" class="text-lg font-bold tracking-tight">{SITE.title}</a>
+  <nav class="flex items-center gap-1 text-sm">
+    {
+      NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'rounded-md px-2.5 py-1.5 transition hover:bg-neutral-100 dark:hover:bg-neutral-800',
+            isActive(item.href)
+              ? 'font-semibold text-neutral-900 dark:text-neutral-100'
+              : 'text-neutral-500 dark:text-neutral-400',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <ThemeToggle />
+  </nav>
+</header>

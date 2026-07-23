@@ -1,0 +1,2 @@
+# Google AdSense 승인 후, 아래 형식으로 실제 게시자 ID를 기입하세요.
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

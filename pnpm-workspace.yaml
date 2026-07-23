@@ -1,0 +1,5 @@
+# 네이티브 바이너리 의존성의 설치 스크립트 실행을 허용한다.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  '@tailwindcss/oxide': true

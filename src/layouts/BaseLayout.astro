@@ -1,0 +1,30 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+}
+
+const { title, description, image, article } = Astro.props;
+---
+
+<!doctype html>
+<html lang={Astro.currentLocale ?? 'ko'}>
+  <head>
+    <BaseHead title={title} description={description} image={image} article={article} />
+  </head>
+  <body class="bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
+    <div class="mx-auto flex min-h-dvh max-w-2xl flex-col px-5">
+      <Header />
+      <main class="flex-1 py-10">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

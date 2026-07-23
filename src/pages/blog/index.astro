@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="블로그" description="글 목록">
+  <h1 class="text-2xl font-bold tracking-tight">블로그</h1>
+  <ul class="mt-6 space-y-6">
+    {posts.length === 0 && <li class="text-neutral-500">아직 작성된 글이 없습니다.</li>}
+    {
+      posts.map((post) => (
+        <li>
+          <a href={`/blog/${post.id}/`} class="group block">
+            <div class="flex items-baseline justify-between gap-4">
+              <h2 class="font-medium group-hover:underline">{post.data.title}</h2>
+              <time class="shrink-0 text-sm tabular-nums text-neutral-400" datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('ko-KR')}
+              </time>
+            </div>
+            <p class="mt-1 line-clamp-2 text-sm text-neutral-500 dark:text-neutral-400">{post.data.description}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

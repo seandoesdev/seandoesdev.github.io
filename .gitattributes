@@ -1,0 +1,11 @@
+# 모든 텍스트 파일의 줄바꿈을 LF로 정규화 (Linux CI 빌드 일관성).
+* text=auto eol=lf
+
+# 바이너리 취급 (줄바꿈 변환 안 함)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary

@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const recent = posts.slice(0, 5);
+---
+
+<BaseLayout>
+  <section class="py-6">
+    <h1 class="text-3xl font-bold tracking-tight">안녕하세요, Sean입니다 👋</h1>
+    <p class="mt-4 leading-relaxed text-neutral-600 dark:text-neutral-400">
+      개발하며 배운 것들과 만든 것들을 기록하는 공간입니다.
+    </p>
+  </section>
+
+  <section class="mt-10">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xs font-semibold uppercase tracking-wider text-neutral-500">최근 글</h2>
+      <a href="/blog" class="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100">전체 보기 →</a>
+    </div>
+    <ul class="mt-4 divide-y divide-neutral-100 dark:divide-neutral-800/70">
+      {recent.length === 0 && <li class="py-3 text-neutral-500">아직 작성된 글이 없습니다.</li>}
+      {
+        recent.map((post) => (
+          <li class="py-3">
+            <a href={`/blog/${post.id}/`} class="group flex items-baseline justify-between gap-4">
+              <span class="group-hover:underline">{post.data.title}</span>
+              <time class="shrink-0 text-sm tabular-nums text-neutral-400" datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('ko-KR')}
+              </time>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
