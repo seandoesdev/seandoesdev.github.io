@@ -10,17 +10,13 @@ export type Lang = keyof typeof languages;
 
 export const ui = {
   ko: {
-    'site.tagline': '웹을 만들고, 배우고, 기록합니다.',
+    'site.role': '개발자',
     'nav.home': '홈',
     'nav.blog': '블로그',
     'nav.projects': '프로젝트',
     'nav.tags': '태그',
     'nav.about': '소개',
-    'home.greeting': '반가워요, Sean이에요.',
-    'home.intro':
-      '웹을 만들고, 배우고, 가끔 글을 씁니다. 여기엔 그 과정에서 남긴 기록과 만든 것들을 모아둡니다.',
-    'home.intro2': '완성된 생각보다, 만들어가는 과정을 더 좋아해요.',
-    'home.recent': '최근에 쓴 글',
+    'home.recent': 'Writing',
     'home.viewAll': '전부 보기',
     'blog.title': '블로그',
     'blog.empty': '아직 쓴 글이 없어요.',
@@ -42,17 +38,13 @@ export const ui = {
     'notFound.home': '홈으로 돌아가기',
   },
   en: {
-    'site.tagline': 'Building for the web, learning, writing it down.',
+    'site.role': 'developer',
     'nav.home': 'Home',
     'nav.blog': 'Blog',
     'nav.projects': 'Projects',
     'nav.tags': 'Tags',
     'nav.about': 'About',
-    'home.greeting': "Hey, I'm Sean.",
-    'home.intro':
-      'I build for the web, learn as I go, and write things down. This is where I keep those notes and the things I make.',
-    'home.intro2': 'I care more about the process of making than the finished idea.',
-    'home.recent': 'Recently written',
+    'home.recent': 'Writing',
     'home.viewAll': 'See all',
     'blog.title': 'Blog',
     'blog.empty': "I haven't written anything yet.",

@@ -8,9 +8,9 @@ const t = useTranslations(lang);
 
 <BaseLayout title={t('notFound.title')}>
   <div class="py-16">
-    <p class="font-serif text-6xl font-semibold text-stone-300 dark:text-stone-700">404</p>
-    <h1 class="mt-4 font-serif text-2xl font-semibold tracking-tight">{t('notFound.title')}</h1>
-    <p class="mt-2 text-stone-500 dark:text-stone-400">{t('notFound.desc')}</p>
-    <a href={localizePath('/', lang)} class="mt-6 inline-block text-sm underline decoration-stone-300 underline-offset-4 transition-colors hover:[color:var(--accent)] dark:decoration-stone-600">{t('notFound.home')}</a>
+    <p class="text-6xl font-bold text-neutral-200 dark:text-neutral-800">404</p>
+    <h1 class="mt-4 text-2xl font-bold tracking-tight">{t('notFound.title')}</h1>
+    <p class="mt-2 text-neutral-500 dark:text-neutral-400">{t('notFound.desc')}</p>
+    <a href={localizePath('/', lang)} class="mt-6 inline-block text-sm underline underline-offset-4 transition-colors hover:[color:var(--accent)]">{t('notFound.home')}</a>
   </div>
 </BaseLayout>

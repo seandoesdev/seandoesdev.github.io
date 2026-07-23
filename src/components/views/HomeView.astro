@@ -2,35 +2,119 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getLangFromUrl, useTranslations, postHref, localizePath } from '../../i18n/utils';
 import { getPosts } from '../../lib/content';
+import { resume } from '../../data/resume';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const r = resume[lang];
 const dateLocale = lang === 'en' ? 'en-US' : 'ko-KR';
-const posts = (await getPosts(lang)).slice(0, 6);
+const posts = (await getPosts(lang)).slice(0, 5);
 ---
 
 <BaseLayout>
-  <section>
-    <h1 class="font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{t('home.greeting')}</h1>
-    <div class="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-stone-600 dark:text-stone-300">
-      <p>{t('home.intro')}</p>
-      <p class="text-stone-500 dark:text-stone-400">{t('home.intro2')}</p>
+  {/* Intro */}
+  <header>
+    <h1 class="text-[2rem] font-bold leading-snug tracking-tight sm:text-[2.15rem]">{r.headline}</h1>
+    <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+      {
+        r.contacts.map((c, i) => (
+          <>
+            {i > 0 && <span class="text-neutral-300 dark:text-neutral-600">·</span>}
+            <a href={c.href} class="text-neutral-600 transition-colors hover:[color:var(--accent)] dark:text-neutral-300">{c.label}</a>
+          </>
+        ))
+      }
     </div>
-  </section>
+    <div class="mt-6 space-y-2 leading-relaxed text-neutral-600 dark:text-neutral-300">
+      {r.intro.map((p) => <p>{p}</p>)}
+    </div>
+  </header>
 
-  <section class="mt-16">
-    <div class="flex items-baseline justify-between border-b border-stone-200 pb-2 dark:border-stone-800">
-      <h2 class="font-serif text-lg font-semibold">{t('home.recent')}</h2>
-      <a href={localizePath('/blog', lang)} class="text-sm text-stone-500 transition-colors hover:[color:var(--accent)]">{t('home.viewAll')}</a>
+  {/* Work Experience */}
+  {r.experience.length > 0 && (
+    <section class="mt-14">
+      <h2 class="text-lg font-bold tracking-tight">{r.expTitle}</h2>
+      <div class="mt-5 space-y-7">
+        {r.experience.map((job) => (
+          <div>
+            <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+              <h3 class="font-semibold">
+                {job.company}
+                <span class="ml-1.5 text-sm font-normal text-neutral-500 dark:text-neutral-400">{job.role}</span>
+              </h3>
+              <span class="text-sm tabular-nums text-neutral-400 dark:text-neutral-500">{job.period}</span>
+            </div>
+            {job.summary && (
+              <p
+                class="mt-2 border-l-2 pl-3 text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300"
+                style="border-color: color-mix(in oklab, var(--accent) 45%, transparent)"
+              >
+                {job.summary}
+              </p>
+            )}
+            {job.points && job.points.length > 0 && (
+              <ul class="mt-2 space-y-1 text-[15px] text-neutral-600 dark:text-neutral-400">
+                {job.points.map((pt) => (
+                  <li class="flex gap-2">
+                    <span class="mt-[0.1em] text-neutral-300 dark:text-neutral-600">•</span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {/* Education */}
+  {r.education.length > 0 && (
+    <section class="mt-12">
+      <h2 class="text-lg font-bold tracking-tight">{r.eduTitle}</h2>
+      <ul class="mt-4 space-y-2">
+        {r.education.map((e) => (
+          <li class="flex flex-wrap items-baseline justify-between gap-x-3">
+            <span>
+              <span class="font-medium">{e.name}</span>
+              <span class="ml-1.5 text-sm text-neutral-500 dark:text-neutral-400">{e.detail}</span>
+            </span>
+            <span class="text-sm tabular-nums text-neutral-400 dark:text-neutral-500">{e.period}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {/* Certifications */}
+  {r.certifications.length > 0 && (
+    <section class="mt-12">
+      <h2 class="text-lg font-bold tracking-tight">{r.certTitle}</h2>
+      <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-[15px]">
+        {r.certifications.map((c) => (
+          <li>
+            <span class="font-medium">{c.name}</span>
+            <span class="ml-1.5 tabular-nums text-neutral-400 dark:text-neutral-500">{c.date}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {/* Recent writing */}
+  <section class="mt-14">
+    <div class="flex items-baseline justify-between border-b border-neutral-200 pb-2 dark:border-neutral-800">
+      <h2 class="text-lg font-bold tracking-tight">{t('home.recent')}</h2>
+      <a href={localizePath('/blog', lang)} class="text-sm text-neutral-500 transition-colors hover:[color:var(--accent)]">{t('home.viewAll')}</a>
     </div>
-    <ul class="divide-y divide-stone-200 dark:divide-stone-800">
-      {posts.length === 0 && <li class="py-5 text-stone-500">{t('blog.empty')}</li>}
+    <ul class="divide-y divide-neutral-200 dark:divide-neutral-800">
+      {posts.length === 0 && <li class="py-4 text-neutral-500">{t('blog.empty')}</li>}
       {
         posts.map((post) => (
           <li>
-            <a href={postHref(post.id, lang)} class="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-              <span class="font-medium text-stone-800 transition-colors group-hover:[color:var(--accent)] dark:text-stone-200">{post.data.title}</span>
-              <time class="shrink-0 text-sm tabular-nums text-stone-400" datetime={post.data.pubDate.toISOString()}>
+            <a href={postHref(post.id, lang)} class="group flex flex-col gap-0.5 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+              <span class="text-neutral-800 transition-colors group-hover:[color:var(--accent)] dark:text-neutral-200">{post.data.title}</span>
+              <time class="shrink-0 text-sm tabular-nums text-neutral-400 dark:text-neutral-500" datetime={post.data.pubDate.toISOString()}>
                 {post.data.pubDate.toLocaleDateString(dateLocale)}
               </time>
             </a>

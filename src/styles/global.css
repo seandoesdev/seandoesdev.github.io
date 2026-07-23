@@ -7,20 +7,18 @@
 @theme {
   --font-sans: "Pretendard Variable", Pretendard, ui-sans-serif, system-ui,
     -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
-  --font-serif: "Fraunces", "Nanum Myeongjo", ui-serif, Georgia, "Times New Roman", serif;
 }
 
-/* 절제된 잉크 블루 액센트 — .dark 에서 밝게. 링크·hover 에만 사용. */
+/* 파란 액센트 (참고 사이트와 동일 계열) — .dark 에서 밝게. */
 :root {
-  --accent: #2f52c9;
+  --accent: #2c5cff;
 }
 :where(.dark) {
-  --accent: #9db2ff;
+  --accent: #7d97ff;
 }
 
 html {
   font-family: var(--font-sans);
-  font-size: 17px; /* 조금 큰 기본 크기로 존재감·가독성 */
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
@@ -40,14 +38,9 @@ body {
   background: color-mix(in oklab, var(--accent) 20%, transparent);
 }
 
-/* 본문(prose): 세리프 헤딩 + 액센트 링크 + 편안한 리듬 */
+/* 본문(prose) */
 .prose {
   --tw-prose-links: var(--accent);
-}
-.prose :where(h1, h2, h3, h4) {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  letter-spacing: -0.01em;
 }
 .prose :where(a) {
   text-underline-offset: 3px;
@@ -55,6 +48,16 @@ body {
 }
 .prose :where(pre) {
   border-radius: 0.5rem;
+}
+
+/* Shiki dual-theme: 다크 모드에서 dark 색상 적용 */
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

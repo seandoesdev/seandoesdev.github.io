@@ -17,27 +17,27 @@ const { Content } = await render(post);
 
 <BaseLayout title={post.data.title} description={post.data.description} article={true}>
   <article>
-    <header class="mb-10">
-      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone-500">
+    <header class="mb-8">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-neutral-500 dark:text-neutral-400">
         <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString(dateLocale)}</time>
         {post.data.category && (
           <>
-            <span class="text-stone-300 dark:text-stone-600">·</span>
+            <span class="text-neutral-300 dark:text-neutral-600">·</span>
             <a href={localizePath(`/categories/${encodeURIComponent(post.data.category)}/`, lang)} class="transition-colors hover:[color:var(--accent)]">
               {post.data.category}
             </a>
           </>
         )}
       </div>
-      <h1 class="mt-3 max-w-3xl font-serif text-4xl font-semibold leading-[1.15] tracking-tight sm:text-[2.75rem]">{post.data.title}</h1>
+      <h1 class="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{post.data.title}</h1>
     </header>
 
-    <div class="prose prose-lg prose-stone max-w-[68ch] dark:prose-invert">
+    <div class="prose prose-neutral max-w-[68ch] dark:prose-invert">
       <Content />
     </div>
 
     {post.data.tags.length > 0 && (
-      <div class="mt-12 flex max-w-[68ch] flex-wrap gap-x-4 gap-y-1 border-t border-stone-200 pt-6 text-sm text-stone-500 dark:border-stone-800">
+      <div class="mt-12 flex max-w-[68ch] flex-wrap gap-x-4 gap-y-1 border-t border-neutral-200 pt-6 text-sm text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
         {post.data.tags.map((tag) => (
           <a href={localizePath(`/tags/${encodeURIComponent(tag)}/`, lang)} class="transition-colors hover:[color:var(--accent)]">#{tag}</a>
         ))}
@@ -46,6 +46,6 @@ const { Content } = await render(post);
   </article>
 
   <div class="mt-10">
-    <a href={localizePath('/blog', lang)} class="text-sm text-stone-500 transition-colors hover:[color:var(--accent)]">{t('post.back')}</a>
+    <a href={localizePath('/blog', lang)} class="text-sm text-neutral-500 transition-colors hover:[color:var(--accent)]">{t('post.back')}</a>
   </div>
 </BaseLayout>

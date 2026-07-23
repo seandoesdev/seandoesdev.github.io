@@ -8,8 +8,8 @@ const t = useTranslations(lang);
 ---
 
 <BaseLayout title={t('about.title')}>
-  <h1 class="font-serif text-3xl font-semibold tracking-tight">{t('about.title')}</h1>
-  <div class="prose prose-lg prose-stone mt-8 max-w-none dark:prose-invert">
+  <h1 class="text-2xl font-bold tracking-tight">{t('about.title')}</h1>
+  <div class="prose prose-neutral mt-6 max-w-[68ch] dark:prose-invert">
     {
       lang === 'en' ? (
         <Fragment>
@@ -24,7 +24,7 @@ const t = useTranslations(lang);
       ) : (
         <Fragment>
           <p>안녕하세요, <strong>Sean</strong>이에요. 웹을 만들고, 그 과정에서 배운 것을 글로 남깁니다. 잘 정리된 결과보다는 헤매던 중간 과정을 더 많이 적는 편이에요.</p>
-          <p>요즘은 TypeScript와 Astro, 그리고 내가 필요해서 만드는 작은 도구들에 관심이 많아요.</p>
+          <p>요즘은 TypeScript와 Astro, 그리고 필요해서 직접 만드는 작은 도구들에 관심이 많아요.</p>
           <h2>다른 곳에서</h2>
           <ul>
             <li>GitHub — <a href="https://github.com/seandoesdev">@seandoesdev</a></li>

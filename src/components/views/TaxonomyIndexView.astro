@@ -18,18 +18,18 @@ const base = kind === 'tags' ? '/tags/' : '/categories/';
 ---
 
 <BaseLayout title={title}>
-  <h1 class="font-serif text-3xl font-semibold tracking-tight">{title}</h1>
-  <ul class="mt-8 flex flex-col divide-y divide-stone-200 dark:divide-stone-800">
-    {terms.length === 0 && <li class="py-6 text-stone-500">{t('blog.empty')}</li>}
+  <h1 class="text-2xl font-bold tracking-tight">{title}</h1>
+  <ul class="mt-6 divide-y divide-neutral-200 dark:divide-neutral-800">
+    {terms.length === 0 && <li class="py-6 text-neutral-500">{t('blog.empty')}</li>}
     {
       terms.map(([term, count]) => (
         <li>
           <a
             href={localizePath(`${base}${encodeURIComponent(term)}/`, lang)}
-            class="group flex items-baseline justify-between py-3 transition-colors"
+            class="group flex items-baseline justify-between py-3"
           >
-            <span class="text-stone-700 group-hover:[color:var(--accent)] dark:text-stone-300">{kind === 'tags' ? `#${term}` : term}</span>
-            <span class="text-sm tabular-nums text-stone-400">{count}</span>
+            <span class="text-neutral-700 transition-colors group-hover:[color:var(--accent)] dark:text-neutral-300">{kind === 'tags' ? `#${term}` : term}</span>
+            <span class="text-sm tabular-nums text-neutral-400 dark:text-neutral-500">{count}</span>
           </a>
         </li>
       ))

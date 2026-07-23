@@ -3,13 +3,13 @@ import { SITE } from '../consts';
 import { getLangFromUrl } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const year = new Date().getFullYear();
-const madeWith = lang === 'en' ? 'Made with care in Seoul' : '서울에서 정성껏 만듭니다';
+const madeWith = lang === 'en' ? 'Built with Astro' : 'Astro로 만들었어요';
 ---
 
-<footer class="flex flex-wrap items-center justify-between gap-3 border-t border-stone-200 py-8 text-sm text-stone-500 dark:border-stone-800 dark:text-stone-400">
-  <p>© {year} {SITE.author} · <span class="text-stone-400 dark:text-stone-500">{madeWith}</span></p>
+<footer class="flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 py-8 text-sm text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
+  <p>© {year} {SITE.author} · <span class="text-neutral-400 dark:text-neutral-500">{madeWith}</span></p>
   <div class="flex items-center gap-4">
-    <a href="/rss.xml" class="transition-colors hover:text-stone-900 dark:hover:text-stone-100">RSS</a>
-    <a href="https://github.com/seandoesdev" class="transition-colors hover:text-stone-900 dark:hover:text-stone-100">GitHub</a>
+    <a href="/rss.xml" class="transition-colors hover:text-neutral-900 dark:hover:text-neutral-100">RSS</a>
+    <a href="https://github.com/seandoesdev" class="transition-colors hover:text-neutral-900 dark:hover:text-neutral-100">GitHub</a>
   </div>
 </footer>

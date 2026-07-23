@@ -27,14 +27,14 @@ function active(href: string): boolean {
 ---
 
 {/* 모바일: 상단 바 */}
-<div class="sticky top-0 z-40 -mx-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-stone-200 bg-[#faf8f4]/95 px-6 py-4 backdrop-blur sm:-mx-8 sm:px-8 lg:hidden dark:border-stone-800 dark:bg-[#191714]/95">
-  <a href={localizePath('/', lang)} class="font-serif text-xl font-semibold tracking-tight">{SITE.title}<span style="color: var(--accent)">.</span></a>
+<div class="sticky top-0 z-40 -mx-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-neutral-200 bg-white/95 px-6 py-4 backdrop-blur sm:-mx-8 sm:px-8 lg:hidden dark:border-neutral-800 dark:bg-neutral-950/95">
+  <a href={localizePath('/', lang)} class="text-lg font-bold tracking-tight">{SITE.title}</a>
   <div class="flex flex-wrap items-center justify-end gap-x-4 gap-y-1 text-[15px]">
     {
       items.filter((i) => i.href !== '/').map((item) => (
         <a
           href={localizePath(item.href, lang)}
-          class:list={['transition-colors', active(item.href) ? 'text-stone-900 dark:text-stone-100' : 'text-stone-500 dark:text-stone-400']}
+          class:list={['transition-colors', active(item.href) ? '[color:var(--accent)]' : 'text-neutral-500 dark:text-neutral-400']}
         >
           {t(item.key)}
         </a>
@@ -44,30 +44,31 @@ function active(href: string): boolean {
   </div>
 </div>
 
-{/* 데스크톱: 좌측 고정 사이드바 */}
-<aside class="hidden lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:py-16">
-  <a href={localizePath('/', lang)} class="font-serif text-2xl font-semibold tracking-tight">{SITE.title}<span style="color: var(--accent)">.</span></a>
-  <p class="mt-3 max-w-[12rem] text-sm leading-relaxed text-stone-500 dark:text-stone-400">{t('site.tagline')}</p>
-  <nav class="mt-10 flex flex-col items-start gap-y-2 text-[15px]">
+{/* 데스크톱: 좌측 사이드바 */}
+<aside class="hidden lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:py-16 lg:pr-8">
+  <a href={localizePath('/', lang)} class="text-xl font-bold tracking-tight">{SITE.title}</a>
+  <p class="mt-1 text-sm text-neutral-400 dark:text-neutral-500">{t('site.role')}</p>
+  <nav class="mt-10 flex flex-col items-start gap-y-2.5 text-[15px]">
     {
-      items.map((item) => (
-        <a
-          href={localizePath(item.href, lang)}
-          class:list={[
-            'transition-colors',
-            active(item.href)
-              ? 'font-medium text-stone-900 dark:text-stone-100'
-              : 'text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100',
-          ]}
-        >
-          {t(item.key)}
-        </a>
-      ))
+      items.map((item) => {
+        const on = active(item.href);
+        return (
+          <a
+            href={localizePath(item.href, lang)}
+            class:list={[
+              'flex items-center gap-1.5 transition-colors',
+              on ? 'font-medium [color:var(--accent)]' : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100',
+            ]}
+          >
+            <span class="w-2 [color:var(--accent)]">{on ? '›' : ''}</span>
+            {t(item.key)}
+          </a>
+        );
+      })
     }
   </nav>
-  <div class="mt-auto flex items-center gap-x-4 pt-8 text-sm text-stone-500 dark:text-stone-400">
-    <a href="https://github.com/seandoesdev" class="transition-colors hover:text-stone-900 dark:hover:text-stone-100">GitHub</a>
-    <a href="/rss.xml" class="transition-colors hover:text-stone-900 dark:hover:text-stone-100">RSS</a>
-    <span class="ml-auto flex items-center gap-1"><LangToggle /><ThemeToggle /></span>
+  <div class="mt-auto flex items-center gap-2 pt-8">
+    <LangToggle />
+    <ThemeToggle />
   </div>
 </aside>
