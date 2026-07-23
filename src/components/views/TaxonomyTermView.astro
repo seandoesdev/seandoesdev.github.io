@@ -20,26 +20,31 @@ const backHref = localizePath(kind === 'tags' ? '/tags' : '/categories', lang);
 ---
 
 <BaseLayout title={`${prefix}${label}`}>
-  <h1 class="text-2xl font-bold tracking-tight">{prefix}<span class="text-neutral-500">{label}</span></h1>
-  <ul class="mt-6 space-y-6">
+  <h1 class="text-2xl font-bold tracking-tight">
+    <span class="text-neutral-400">{prefix}</span><span class="text-indigo-600 dark:text-indigo-400">{label}</span>
+  </h1>
+  <ul class="mt-8 space-y-4">
     {posts.length === 0 && <li class="text-neutral-500">{t('blog.empty')}</li>}
     {
       posts.map((post) => (
         <li>
-          <a href={postHref(post.id, lang)} class="group block">
+          <a
+            href={postHref(post.id, lang)}
+            class="group block rounded-xl border border-neutral-200 p-5 transition hover:border-indigo-300 hover:shadow-sm dark:border-neutral-800 dark:hover:border-indigo-800/70"
+          >
             <div class="flex items-baseline justify-between gap-4">
-              <h2 class="font-medium group-hover:underline">{post.data.title}</h2>
+              <h2 class="font-semibold text-neutral-900 group-hover:text-indigo-600 dark:text-neutral-100 dark:group-hover:text-indigo-400">{post.data.title}</h2>
               <time class="shrink-0 text-sm tabular-nums text-neutral-400" datetime={post.data.pubDate.toISOString()}>
                 {post.data.pubDate.toLocaleDateString(dateLocale)}
               </time>
             </div>
-            <p class="mt-1 line-clamp-2 text-sm text-neutral-500 dark:text-neutral-400">{post.data.description}</p>
+            <p class="mt-1.5 line-clamp-2 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">{post.data.description}</p>
           </a>
         </li>
       ))
     }
   </ul>
   <div class="mt-10">
-    <a href={backHref} class="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100">{t('post.back')}</a>
+    <a href={backHref} class="text-sm text-neutral-500 transition hover:text-indigo-600 dark:hover:text-indigo-400">{t('post.back')}</a>
   </div>
 </BaseLayout>

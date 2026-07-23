@@ -10,23 +10,31 @@ const posts = (await getPosts(lang)).slice(0, 5);
 ---
 
 <BaseLayout>
-  <section class="py-6">
-    <h1 class="text-3xl font-bold tracking-tight">{t('home.greeting')}</h1>
-    <p class="mt-4 leading-relaxed text-neutral-600 dark:text-neutral-400">{t('home.intro')}</p>
+  <section class="py-4">
+    <span class="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/60 px-3 py-1 text-xs font-medium text-neutral-500 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-400">
+      <span class="size-1.5 rounded-full bg-indigo-500"></span>
+      {t('home.badge')}
+    </span>
+    <h1 class="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">{t('home.greeting')}</h1>
+    <p class="mt-4 max-w-prose text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">{t('home.intro')}</p>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a href={localizePath('/blog', lang)} class="inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-500">{t('home.ctaBlog')}</a>
+      <a href={localizePath('/projects', lang)} class="inline-flex items-center rounded-lg border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-neutral-600 dark:hover:bg-neutral-900">{t('home.ctaProjects')}</a>
+    </div>
   </section>
 
-  <section class="mt-10">
+  <section class="mt-14">
     <div class="flex items-baseline justify-between">
       <h2 class="text-xs font-semibold uppercase tracking-wider text-neutral-500">{t('home.recent')}</h2>
-      <a href={localizePath('/blog', lang)} class="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100">{t('home.viewAll')}</a>
+      <a href={localizePath('/blog', lang)} class="text-sm text-neutral-500 transition hover:text-indigo-600 dark:hover:text-indigo-400">{t('home.viewAll')}</a>
     </div>
-    <ul class="mt-4 divide-y divide-neutral-100 dark:divide-neutral-800/70">
+    <ul class="mt-4 space-y-1">
       {posts.length === 0 && <li class="py-3 text-neutral-500">{t('blog.empty')}</li>}
       {
         posts.map((post) => (
-          <li class="py-3">
-            <a href={postHref(post.id, lang)} class="group flex items-baseline justify-between gap-4">
-              <span class="group-hover:underline">{post.data.title}</span>
+          <li>
+            <a href={postHref(post.id, lang)} class="group flex items-baseline justify-between gap-4 rounded-lg px-3 py-2.5 -mx-3 transition hover:bg-neutral-50 dark:hover:bg-neutral-900">
+              <span class="font-medium text-neutral-800 group-hover:text-indigo-600 dark:text-neutral-200 dark:group-hover:text-indigo-400">{post.data.title}</span>
               <time class="shrink-0 text-sm tabular-nums text-neutral-400" datetime={post.data.pubDate.toISOString()}>
                 {post.data.pubDate.toLocaleDateString(dateLocale)}
               </time>

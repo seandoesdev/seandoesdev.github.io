@@ -20,13 +20,11 @@ const lang = getLangFromUrl(Astro.url);
   <head>
     <BaseHead title={title} description={description} image={image} article={article} />
   </head>
-  <body class="bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
-    <div class="mx-auto flex min-h-dvh max-w-2xl flex-col px-5">
-      <Header />
-      <main class="flex-1 py-10">
-        <slot />
-      </main>
-      <Footer />
-    </div>
+  <body class="flex min-h-dvh flex-col bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
+    <Header />
+    <main class="mx-auto w-full max-w-2xl flex-1 px-5 py-12">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
