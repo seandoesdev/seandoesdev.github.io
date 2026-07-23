@@ -23,6 +23,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Build with Astro
         uses: withastro/action@v3
+        with:
+          # pnpm 11은 Node >=22.13을 요구하므로 기본값(20) 대신 24를 사용.
+          node-version: 24
         # pnpm-lock.yaml을 감지해 pnpm으로 설치·빌드합니다.
 
   deploy:
