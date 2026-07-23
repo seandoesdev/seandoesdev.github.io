@@ -1,37 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-const projects = (await getCollection('projects')).sort(
-  (a, b) => a.data.order - b.data.order
-);
+import ProjectListView from '../../components/views/ProjectListView.astro';
 ---
 
-<BaseLayout title="프로젝트" description="만든 것들">
-  <h1 class="text-2xl font-bold tracking-tight">프로젝트</h1>
-  <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">만든 것들을 모아둡니다. (준비 중 — 계속 채워나갈 예정)</p>
-  <ul class="mt-8 space-y-8">
-    {projects.length === 0 && <li class="text-neutral-500">아직 등록된 프로젝트가 없습니다.</li>}
-    {
-      projects.map((project) => (
-        <li>
-          <div class="flex items-baseline justify-between gap-4">
-            <h2 class="font-medium">{project.data.title}</h2>
-            <div class="flex shrink-0 gap-3 text-sm text-neutral-500">
-              {project.data.repo && <a href={project.data.repo} class="hover:text-neutral-900 dark:hover:text-neutral-100">코드</a>}
-              {project.data.demo && <a href={project.data.demo} class="hover:text-neutral-900 dark:hover:text-neutral-100">데모</a>}
-            </div>
-          </div>
-          <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{project.data.description}</p>
-          {project.data.tech.length > 0 && (
-            <div class="mt-2 flex flex-wrap gap-2">
-              {project.data.tech.map((t) => (
-                <span class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">{t}</span>
-              ))}
-            </div>
-          )}
-        </li>
-      ))
-    }
-  </ul>
-</BaseLayout>
+<ProjectListView />

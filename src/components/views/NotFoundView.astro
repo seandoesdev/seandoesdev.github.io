@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('notFound.title')}>
+  <div class="py-16 text-center">
+    <p class="text-5xl font-bold tracking-tight">404</p>
+    <p class="mt-4 text-neutral-500 dark:text-neutral-400">{t('notFound.desc')}</p>
+    <a href={localizePath('/', lang)} class="mt-6 inline-block text-sm text-neutral-900 underline dark:text-neutral-100">{t('notFound.home')}</a>
+  </div>
+</BaseLayout>

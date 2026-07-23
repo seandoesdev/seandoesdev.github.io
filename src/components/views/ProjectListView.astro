@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getProjects } from '../../lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const projects = await getProjects(lang);
+---
+
+<BaseLayout title={t('projects.title')}>
+  <h1 class="text-2xl font-bold tracking-tight">{t('projects.title')}</h1>
+  <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">{t('projects.note')}</p>
+  <ul class="mt-8 space-y-8">
+    {projects.length === 0 && <li class="text-neutral-500">{t('projects.empty')}</li>}
+    {
+      projects.map((project) => (
+        <li>
+          <div class="flex items-baseline justify-between gap-4">
+            <h2 class="font-medium">{project.data.title}</h2>
+            <div class="flex shrink-0 gap-3 text-sm text-neutral-500">
+              {project.data.repo && <a href={project.data.repo} class="hover:text-neutral-900 dark:hover:text-neutral-100">{t('projects.code')}</a>}
+              {project.data.demo && <a href={project.data.demo} class="hover:text-neutral-900 dark:hover:text-neutral-100">{t('projects.demo')}</a>}
+            </div>
+          </div>
+          <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{project.data.description}</p>
+          {project.data.tech.length > 0 && (
+            <div class="mt-2 flex flex-wrap gap-2">
+              {project.data.tech.map((tech) => (
+                <span class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">{tech}</span>
+              ))}
+            </div>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

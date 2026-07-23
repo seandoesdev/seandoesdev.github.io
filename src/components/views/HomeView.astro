@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations, postHref, localizePath } from '../../i18n/utils';
+import { getPosts } from '../../lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const dateLocale = lang === 'en' ? 'en-US' : 'ko-KR';
+const posts = (await getPosts(lang)).slice(0, 5);
+---
+
+<BaseLayout>
+  <section class="py-6">
+    <h1 class="text-3xl font-bold tracking-tight">{t('home.greeting')}</h1>
+    <p class="mt-4 leading-relaxed text-neutral-600 dark:text-neutral-400">{t('home.intro')}</p>
+  </section>
+
+  <section class="mt-10">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xs font-semibold uppercase tracking-wider text-neutral-500">{t('home.recent')}</h2>
+      <a href={localizePath('/blog', lang)} class="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100">{t('home.viewAll')}</a>
+    </div>
+    <ul class="mt-4 divide-y divide-neutral-100 dark:divide-neutral-800/70">
+      {posts.length === 0 && <li class="py-3 text-neutral-500">{t('blog.empty')}</li>}
+      {
+        posts.map((post) => (
+          <li class="py-3">
+            <a href={postHref(post.id, lang)} class="group flex items-baseline justify-between gap-4">
+              <span class="group-hover:underline">{post.data.title}</span>
+              <time class="shrink-0 text-sm tabular-nums text-neutral-400" datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString(dateLocale)}
+              </time>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

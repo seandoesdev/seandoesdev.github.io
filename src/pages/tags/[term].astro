@@ -1,0 +1,10 @@
+---
+import { termPaths } from '../../lib/taxonomy';
+import TaxonomyTermView from '../../components/views/TaxonomyTermView.astro';
+
+export const getStaticPaths = () => termPaths('ko', 'tags');
+
+const { term, posts } = Astro.props;
+---
+
+<TaxonomyTermView kind="tags" term={term} posts={posts} />

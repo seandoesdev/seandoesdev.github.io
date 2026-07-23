@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n/utils';
+import { getPosts } from '../../lib/content';
+import { collectTerms, sortedTerms, type TaxonomyKind } from '../../lib/taxonomy';
+
+interface Props {
+  kind: TaxonomyKind;
+}
+
+const { kind } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const posts = await getPosts(lang);
+const terms = sortedTerms(collectTerms(posts, kind));
+const title = kind === 'tags' ? t('tags.title') : t('categories.title');
+const base = kind === 'tags' ? '/tags/' : '/categories/';
+---
+
+<BaseLayout title={title}>
+  <h1 class="text-2xl font-bold tracking-tight">{title}</h1>
+  <ul class="mt-6 flex flex-wrap gap-2">
+    {terms.length === 0 && <li class="text-neutral-500">{t('blog.empty')}</li>}
+    {
+      terms.map(([term, count]) => (
+        <li>
+          <a
+            href={localizePath(`${base}${encodeURIComponent(term)}/`, lang)}
+            class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-3 py-1 text-sm transition hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
+          >
+            <span>{kind === 'tags' ? `#${term}` : term}</span>
+            <span class="text-xs text-neutral-400">{count}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

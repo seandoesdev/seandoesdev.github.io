@@ -14,6 +14,26 @@ html {
   font-family: var(--font-sans);
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  text-wrap: pretty;
+}
+
+/* 키보드 포커스 접근성 */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* 선택 영역 색상 */
+::selection {
+  background: rgb(0 0 0 / 0.12);
+}
+:where(.dark) ::selection {
+  background: rgb(255 255 255 / 0.18);
 }
 
 @media (prefers-reduced-motion: reduce) {

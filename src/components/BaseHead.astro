@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../consts';
+import { getLangFromUrl, alternatePaths } from '../i18n/utils';
 import '../styles/global.css';
 
 interface Props {
@@ -9,9 +10,10 @@ interface Props {
   article?: boolean;
 }
 
+const lang = getLangFromUrl(Astro.url);
 const {
   title,
-  description = SITE.description,
+  description = lang === 'en' ? SITE.descriptionEn : SITE.description,
   image = '/og-default.png',
   article = false,
 } = Astro.props;
@@ -19,6 +21,7 @@ const {
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+const alt = alternatePaths(Astro.url);
 const ga = SITE.gaMeasurementId;
 const ads = SITE.adsensePublisherId;
 ---
@@ -26,14 +29,16 @@ const ads = SITE.adsensePublisherId;
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  title={SITE.title}
-  href={new URL('rss.xml', Astro.site)}
-/>
+<link rel="alternate" type="application/rss+xml" title={SITE.title} href={new URL('rss.xml', Astro.site)} />
+
+<!-- hreflang -->
+<link rel="alternate" hreflang="ko" href={new URL(alt.ko, Astro.site)} />
+<link rel="alternate" hreflang="en" href={new URL(alt.en, Astro.site)} />
+<link rel="alternate" hreflang="x-default" href={new URL(alt.ko, Astro.site)} />
 
 <!-- Pretendard (dynamic subset) -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -55,6 +60,7 @@ const ads = SITE.adsensePublisherId;
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
 <meta property="og:site_name" content={SITE.title} />
+<meta property="og:locale" content={lang === 'en' ? 'en_US' : 'ko_KR'} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />

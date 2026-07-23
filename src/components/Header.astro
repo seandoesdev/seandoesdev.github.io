@@ -1,30 +1,51 @@
 ---
-import { NAV, SITE } from '../consts';
+import { getLangFromUrl, useTranslations, localizePath } from '../i18n/utils';
+import type { UIKey } from '../i18n/ui';
+import { SITE } from '../consts';
 import ThemeToggle from './ThemeToggle.astro';
+import LangToggle from './LangToggle.astro';
 
-const pathname = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === '/' ? pathname === '/' : pathname.startsWith(href);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const items: { href: string; key: UIKey }[] = [
+  { href: '/', key: 'nav.home' },
+  { href: '/blog', key: 'nav.blog' },
+  { href: '/projects', key: 'nav.projects' },
+  { href: '/tags', key: 'nav.tags' },
+  { href: '/about', key: 'nav.about' },
+];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const home = localizePath('/', lang).replace(/\/$/, '') || '/';
+function active(href: string): boolean {
+  const full = localizePath(href, lang).replace(/\/$/, '') || '/';
+  return href === '/'
+    ? pathname === home
+    : pathname === full || pathname.startsWith(`${full}/`);
+}
 ---
 
-<header class="flex items-center justify-between gap-4 border-b border-neutral-200 py-5 dark:border-neutral-800">
-  <a href="/" class="text-lg font-bold tracking-tight">{SITE.title}</a>
-  <nav class="flex items-center gap-1 text-sm">
+<header class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-neutral-200 py-5 dark:border-neutral-800">
+  <a href={localizePath('/', lang)} class="text-lg font-bold tracking-tight">{SITE.title}</a>
+  <nav class="flex items-center gap-0.5 text-sm">
     {
-      NAV.map((item) => (
+      items.map((item) => (
         <a
-          href={item.href}
+          href={localizePath(item.href, lang)}
           class:list={[
             'rounded-md px-2.5 py-1.5 transition hover:bg-neutral-100 dark:hover:bg-neutral-800',
-            isActive(item.href)
+            active(item.href)
               ? 'font-semibold text-neutral-900 dark:text-neutral-100'
               : 'text-neutral-500 dark:text-neutral-400',
           ]}
         >
-          {item.label}
+          {t(item.key)}
         </a>
       ))
     }
+    <span class="mx-1 h-4 w-px bg-neutral-200 dark:bg-neutral-700" aria-hidden="true"></span>
+    <LangToggle />
     <ThemeToggle />
   </nav>
 </header>
