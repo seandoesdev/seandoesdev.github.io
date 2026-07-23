@@ -10,6 +10,7 @@ export type Lang = keyof typeof languages;
 
 export const ui = {
   ko: {
+    'site.tagline': '웹을 만들고, 배우고, 기록합니다.',
     'nav.home': '홈',
     'nav.blog': '블로그',
     'nav.projects': '프로젝트',
@@ -41,6 +42,7 @@ export const ui = {
     'notFound.home': '홈으로 돌아가기',
   },
   en: {
+    'site.tagline': 'Building for the web, learning, writing it down.',
     'nav.home': 'Home',
     'nav.blog': 'Blog',
     'nav.projects': 'Projects',

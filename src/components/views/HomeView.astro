@@ -7,37 +7,15 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const dateLocale = lang === 'en' ? 'en-US' : 'ko-KR';
 const posts = (await getPosts(lang)).slice(0, 6);
-
-const quickLinks = [
-  { href: '/blog', key: 'nav.blog' as const },
-  { href: '/projects', key: 'nav.projects' as const },
-  { href: '/about', key: 'nav.about' as const },
-];
 ---
 
 <BaseLayout>
-  <section class="pt-2 pb-4">
+  <section>
     <h1 class="font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{t('home.greeting')}</h1>
-    <div class="mt-6 max-w-xl space-y-4 text-lg leading-relaxed text-stone-600 dark:text-stone-300">
+    <div class="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-stone-600 dark:text-stone-300">
       <p>{t('home.intro')}</p>
       <p class="text-stone-500 dark:text-stone-400">{t('home.intro2')}</p>
     </div>
-    <nav class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px]">
-      {
-        quickLinks.map((l) => (
-          <a
-            href={localizePath(l.href, lang)}
-            class="text-stone-700 underline decoration-stone-300 underline-offset-4 transition-colors hover:decoration-[var(--accent)] hover:[color:var(--accent)] dark:text-stone-300 dark:decoration-stone-600"
-          >
-            {t(l.key)}
-          </a>
-        ))
-      }
-      <a
-        href="/rss.xml"
-        class="text-stone-700 underline decoration-stone-300 underline-offset-4 transition-colors hover:decoration-[var(--accent)] hover:[color:var(--accent)] dark:text-stone-300 dark:decoration-stone-600"
-      >RSS</a>
-    </nav>
   </section>
 
   <section class="mt-16">
@@ -50,14 +28,11 @@ const quickLinks = [
       {
         posts.map((post) => (
           <li>
-            <a href={postHref(post.id, lang)} class="group block py-4">
-              <div class="flex items-baseline justify-between gap-4">
-                <h3 class="font-medium text-stone-800 transition-colors group-hover:[color:var(--accent)] dark:text-stone-200">{post.data.title}</h3>
-                <time class="shrink-0 text-sm tabular-nums text-stone-400" datetime={post.data.pubDate.toISOString()}>
-                  {post.data.pubDate.toLocaleDateString(dateLocale)}
-                </time>
-              </div>
-              <p class="mt-1 line-clamp-1 text-[15px] text-stone-500 dark:text-stone-400">{post.data.description}</p>
+            <a href={postHref(post.id, lang)} class="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+              <span class="font-medium text-stone-800 transition-colors group-hover:[color:var(--accent)] dark:text-stone-200">{post.data.title}</span>
+              <time class="shrink-0 text-sm tabular-nums text-stone-400" datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString(dateLocale)}
+              </time>
             </a>
           </li>
         ))

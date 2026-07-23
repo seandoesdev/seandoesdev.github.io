@@ -1,6 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 import { getLangFromUrl } from '../i18n/utils';
 
@@ -20,11 +20,15 @@ const lang = getLangFromUrl(Astro.url);
   <head>
     <BaseHead title={title} description={description} image={image} article={article} />
   </head>
-  <body class="flex min-h-dvh flex-col bg-[#faf8f4] text-stone-800 antialiased dark:bg-[#191714] dark:text-stone-200">
-    <Header />
-    <main class="mx-auto w-full max-w-3xl flex-1 px-6 py-14 sm:px-8">
-      <slot />
-    </main>
-    <Footer />
+  <body class="bg-[#faf8f4] text-stone-800 antialiased dark:bg-[#191714] dark:text-stone-200">
+    <div class="mx-auto max-w-5xl px-6 sm:px-8 lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-x-16">
+      <Sidebar />
+      <div class="flex min-h-dvh flex-col">
+        <main class="flex-1 py-10 lg:py-16">
+          <slot />
+        </main>
+        <Footer />
+      </div>
+    </div>
   </body>
 </html>
