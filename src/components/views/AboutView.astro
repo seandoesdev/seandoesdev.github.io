@@ -8,39 +8,27 @@ const t = useTranslations(lang);
 ---
 
 <BaseLayout title={t('about.title')}>
-  <h1 class="text-2xl font-bold tracking-tight">{t('about.title')}</h1>
-  <div class="prose prose-neutral mt-6 max-w-none dark:prose-invert">
+  <h1 class="font-serif text-3xl font-semibold tracking-tight">{t('about.title')}</h1>
+  <div class="prose prose-lg prose-stone mt-8 max-w-none dark:prose-invert">
     {
       lang === 'en' ? (
         <Fragment>
-          <p>Hi, I'm <strong>Sean</strong>. I build things for the web and write about what I learn along the way.</p>
-          <h2>What I do</h2>
+          <p>Hey, I'm <strong>Sean</strong>. I build things for the web and write about what I learn along the way — mostly the messy middle, not just the polished result.</p>
+          <p>These days I'm into TypeScript, Astro, and making small tools that scratch my own itch.</p>
+          <h2>Elsewhere</h2>
           <ul>
-            <li>Frontend & full-stack development</li>
-            <li>Writing about tools, patterns, and small experiments</li>
-          </ul>
-          <h2>Skills</h2>
-          <p>TypeScript · Astro · React · Node.js <em>(edit me)</em></p>
-          <h2>Contact</h2>
-          <ul>
-            <li>GitHub: <a href="https://github.com/seandoesdev">@seandoesdev</a></li>
-            <li>Email: <em>you@example.com (edit me)</em></li>
+            <li>GitHub — <a href="https://github.com/seandoesdev">@seandoesdev</a></li>
+            <li>Email — <em>you@example.com (edit me)</em></li>
           </ul>
         </Fragment>
       ) : (
         <Fragment>
-          <p>안녕하세요, <strong>Sean</strong>입니다. 웹을 만들고, 배운 것을 기록합니다.</p>
-          <h2>하는 일</h2>
+          <p>안녕하세요, <strong>Sean</strong>이에요. 웹을 만들고, 그 과정에서 배운 것을 글로 남깁니다. 잘 정리된 결과보다는 헤매던 중간 과정을 더 많이 적는 편이에요.</p>
+          <p>요즘은 TypeScript와 Astro, 그리고 내가 필요해서 만드는 작은 도구들에 관심이 많아요.</p>
+          <h2>다른 곳에서</h2>
           <ul>
-            <li>프론트엔드 · 풀스택 개발</li>
-            <li>도구·패턴·작은 실험에 대한 글쓰기</li>
-          </ul>
-          <h2>기술</h2>
-          <p>TypeScript · Astro · React · Node.js <em>(수정하세요)</em></p>
-          <h2>연락처</h2>
-          <ul>
-            <li>GitHub: <a href="https://github.com/seandoesdev">@seandoesdev</a></li>
-            <li>이메일: <em>you@example.com (수정하세요)</em></li>
+            <li>GitHub — <a href="https://github.com/seandoesdev">@seandoesdev</a></li>
+            <li>이메일 — <em>you@example.com (수정하세요)</em></li>
           </ul>
         </Fragment>
       )

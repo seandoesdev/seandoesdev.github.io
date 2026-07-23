@@ -18,18 +18,18 @@ const base = kind === 'tags' ? '/tags/' : '/categories/';
 ---
 
 <BaseLayout title={title}>
-  <h1 class="text-2xl font-bold tracking-tight">{title}</h1>
-  <ul class="mt-8 flex flex-wrap gap-2.5">
-    {terms.length === 0 && <li class="text-neutral-500">{t('blog.empty')}</li>}
+  <h1 class="font-serif text-3xl font-semibold tracking-tight">{title}</h1>
+  <ul class="mt-8 flex flex-col divide-y divide-stone-200 dark:divide-stone-800">
+    {terms.length === 0 && <li class="py-6 text-stone-500">{t('blog.empty')}</li>}
     {
       terms.map(([term, count]) => (
         <li>
           <a
             href={localizePath(`${base}${encodeURIComponent(term)}/`, lang)}
-            class="group inline-flex items-center gap-2 rounded-full border border-neutral-200 py-1.5 pl-3.5 pr-2 text-sm transition hover:border-indigo-300 hover:text-indigo-600 dark:border-neutral-700 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
+            class="group flex items-baseline justify-between py-3 transition-colors"
           >
-            <span>{kind === 'tags' ? `#${term}` : term}</span>
-            <span class="rounded-full bg-neutral-100 px-1.5 text-xs text-neutral-500 group-hover:bg-indigo-100 group-hover:text-indigo-600 dark:bg-neutral-800 dark:text-neutral-400 dark:group-hover:bg-indigo-950 dark:group-hover:text-indigo-400">{count}</span>
+            <span class="text-stone-700 group-hover:[color:var(--accent)] dark:text-stone-300">{kind === 'tags' ? `#${term}` : term}</span>
+            <span class="text-sm tabular-nums text-stone-400">{count}</span>
           </a>
         </li>
       ))
