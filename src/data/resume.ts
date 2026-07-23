@@ -31,14 +31,14 @@ export interface ResumeData {
 // ⚠️ 아래는 편집용 예시 데이터입니다. 실제 이력/링크로 교체하세요.
 export const resume: Record<Lang, ResumeData> = {
   ko: {
-    headline: '도움이 되는 걸 만들고 싶은 개발자, Sean이에요.',
+    headline: '안녕하세요, Sean입니다.',
     contacts: [
       { label: 'GitHub', href: 'https://github.com/seandoesdev' },
       { label: 'Email', href: 'mailto:you@example.com' },
     ],
     intro: [
-      '풍부한 기술보다, 지금 문제를 푸는 데 필요한 최소한의 것을 좋아합니다.',
-      '빠르게 만들고 고치는 과정에서 배운 것을 기록으로 남깁니다.',
+      // 나를 한두 문장으로 소개하는 문구로 바꿔 주세요.
+      '여기는 제가 만든 것과 배운 것을 기록해 두는 공간이에요.',
     ],
     expTitle: 'Work Experience',
     eduTitle: 'Education',
@@ -62,14 +62,14 @@ export const resume: Record<Lang, ResumeData> = {
     certifications: [{ name: '정보처리기사', date: '2020.11' }],
   },
   en: {
-    headline: 'I build things that help — hi, I’m Sean.',
+    headline: "Hi, I'm Sean.",
     contacts: [
       { label: 'GitHub', href: 'https://github.com/seandoesdev' },
       { label: 'Email', href: 'mailto:you@example.com' },
     ],
     intro: [
-      'I prefer the smallest set of tools that solves the problem in front of me, over a big stack.',
-      'I build fast, fix fast, and write down what I learn along the way.',
+      // Replace with a line or two introducing yourself.
+      'This is where I keep the things I make and the things I learn.',
     ],
     expTitle: 'Work Experience',
     eduTitle: 'Education',

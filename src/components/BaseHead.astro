@@ -69,7 +69,8 @@ const ads = SITE.adsensePublisherId;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<!-- Theme init: set .dark before paint to avoid flash -->
+<!-- Theme: set .dark before paint (no flash), and toggle via delegation
+     so every toggle button works even though it renders twice (sidebar + mobile bar). -->
 <script is:inline>
   (() => {
     const stored = localStorage.getItem('theme');
@@ -78,6 +79,12 @@ const ads = SITE.adsensePublisherId;
       (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.classList.toggle('dark', dark);
   })();
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-theme-toggle]');
+    if (!btn) return;
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
 </script>
 
 {
