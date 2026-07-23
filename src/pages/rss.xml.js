@@ -1,21 +1,21 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+import { getPosts } from '../lib/content';
+import { postHref } from '../i18n/utils';
 import { SITE } from '../consts';
 
+// 기본 로케일(영어) 글 피드.
 export async function GET(context) {
-  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
+  const posts = await getPosts('en');
 
   return rss({
     title: SITE.title,
-    description: SITE.description,
+    description: SITE.descriptionEn,
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.pubDate,
-      link: `/blog/${post.id}/`,
+      link: postHref(post.id, 'en'),
     })),
   });
 }

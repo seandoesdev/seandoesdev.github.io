@@ -8,8 +8,8 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://seandoesdev.github.io',
   i18n: {
-    defaultLocale: 'ko',
-    locales: ['ko', 'en'],
+    defaultLocale: 'en',
+    locales: ['en', 'ko'],
     routing: {
       prefixDefaultLocale: false,
     },
@@ -27,8 +27,8 @@ export default defineConfig({
     mdx(),
     sitemap({
       i18n: {
-        defaultLocale: 'ko',
-        locales: { ko: 'ko-KR', en: 'en-US' },
+        defaultLocale: 'en',
+        locales: { en: 'en-US', ko: 'ko-KR' },
       },
     }),
   ],

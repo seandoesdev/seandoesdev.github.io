@@ -4,7 +4,7 @@ import { stripLangPrefix } from '../../../i18n/utils';
 import PostView from '../../../components/views/PostView.astro';
 
 export async function getStaticPaths() {
-  const posts = await getPosts('en');
+  const posts = await getPosts('ko');
   return posts.map((post) => ({
     params: { slug: stripLangPrefix(post.id) },
     props: { post },
